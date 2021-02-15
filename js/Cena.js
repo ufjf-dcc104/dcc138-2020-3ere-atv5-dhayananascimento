@@ -1,6 +1,6 @@
 export default class Cena {
   //Essa classe é responsável por desenhar elementos na tela em uma animação
-  
+
   constructor(canvas) {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
