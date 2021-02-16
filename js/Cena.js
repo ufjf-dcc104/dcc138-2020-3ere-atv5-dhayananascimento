@@ -77,5 +77,7 @@ export default class Cena {
       const idx = this.sprites.indexOf(alvo);
       if (idx >= 0) this.sprites.splice(idx, 1);
     }
+
+    this.aRemover = [];
   }
 }
