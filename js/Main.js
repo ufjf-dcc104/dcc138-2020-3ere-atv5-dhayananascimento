@@ -7,6 +7,7 @@ const assets = new AssetManager();
 assets.carregaImagem("garota", "assets/girl.png");
 assets.carregaImagem("orc", "assets/orc.png");
 assets.carregaImagem("esqueleto", "assets/skeleton.png");
+assets.carregaAudio("moeda", "assets/coin.wav");
 
 const canvas = document.querySelector("canvas");
 
