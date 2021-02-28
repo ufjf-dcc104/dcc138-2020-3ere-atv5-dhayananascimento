@@ -8,10 +8,6 @@ assets.carregaImagem("garota", "assets/girl.png");
 assets.carregaImagem("orc", "assets/orc.png");
 assets.carregaImagem("esqueleto", "assets/skeleton.png");
 
-document.body.appendChild(assets.retornaImagem("garota"));
-document.body.appendChild(assets.retornaImagem("orc"));
-document.body.appendChild(assets.retornaImagem("esqueleto"));
-
 const canvas = document.querySelector("canvas");
 
 const cena1 = new Cena(canvas, assets);
