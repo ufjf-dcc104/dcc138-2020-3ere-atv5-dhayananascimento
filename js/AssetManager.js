@@ -1,7 +1,19 @@
 export default class AssetManager {
-  construtor() {
+  constructor() {
     this.aCarregar = 0;
     this.carregadas = 0;
+    this.imagens = new Map();
+  }
+
+  carregaImagem(chave, source) {
+    const img1 = new Image();
+    img1.src = source;
+
+    this.imagens.set(chave, img1);
+  }
+
+  retornaImagem(chave) {
+    return this.imagens.get(chave);
   }
 
   progresso() {

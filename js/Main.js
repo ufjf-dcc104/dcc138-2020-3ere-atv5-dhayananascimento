@@ -1,24 +1,16 @@
 import Cena from "./Cena.js";
 import Sprite from "./Sprite.js";
-import AssetManager from "./AssetsManager.js";
-
-const img1 = new Image();
-img1.src = "./assets/girl.png";
-img1.alt = "girl";
-
-const img2 = new Image();
-img2.src = "./assets/orc.png";
-img2.alt = "orc";
-
-const img3 = new Image();
-img3.src = "./assets/skeleton.png";
-img3.alt = "skeleton";
-
-document.body.appendChild(img1);
-document.body.appendChild(img2);
-document.body.appendChild(img3);
+import AssetManager from "./AssetManager.js";
 
 const assets = new AssetManager();
+
+assets.carregaImagem("garota", "assets/girl.png");
+assets.carregaImagem("orc", "assets/orc.png");
+assets.carregaImagem("esqueleto", "assets/skeleton.png");
+
+document.body.appendChild(assets.retornaImagem("garota"));
+document.body.appendChild(assets.retornaImagem("orc"));
+document.body.appendChild(assets.retornaImagem("esqueleto"));
 
 const canvas = document.querySelector("canvas");
 
