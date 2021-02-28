@@ -8,6 +8,7 @@ assets.carregaImagem("garota", "assets/girl.png");
 assets.carregaImagem("orc", "assets/orc.png");
 assets.carregaImagem("esqueleto", "assets/skeleton.png");
 assets.carregaAudio("moeda", "assets/coin.wav");
+assets.carregaAudio("boom", "assets/boom.wav");
 
 const canvas = document.querySelector("canvas");
 
@@ -32,6 +33,9 @@ document.addEventListener("keydown", (e) => {
       break;
     case "c":
       assets.retornaAudio("moeda").play();
+      break;
+    case "b":
+      assets.retornaAudio("boom").play();
       break;
   }
 });
