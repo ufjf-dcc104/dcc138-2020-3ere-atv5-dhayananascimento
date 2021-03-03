@@ -5,13 +5,14 @@ export default class Mapa {
     this.SIZE = tamanho;
 
     this.tiles = [];
-    
+
     for (let l = 0; l < this.LINHAS; l++) {
       this.tiles[l] = [];
       for (let c = 0; c < this.COLUNAS; c++) {
         this.tiles[l][c] = 0;
       }
     }
+
     this.cena = null;
   }
 
@@ -35,6 +36,19 @@ export default class Mapa {
             ctx.strokeStyle = "grey";
             ctx.strokeRect(c * this.SIZE, l * this.SIZE, this.SIZE, this.SIZE);
         }
+      }
+    }
+  }
+
+  carregaMapa(modelo) {
+    this.LINHAS = modelo.length;
+    this.COLUNAS = modelo[0]?.length ?? 0;
+
+    this.tiles = [];
+    for (let l = 0; l < this.LINHAS; l++) {
+      this.tiles[l] = [];
+      for (let c = 0; c < this.COLUNAS; c++) {
+        this.tiles[l][c] = modelo[l][c];
       }
     }
   }
