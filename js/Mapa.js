@@ -22,27 +22,21 @@ export default class Mapa {
         switch (this.tiles[l][c]) {
           case 1:
             ctx.fillStyle = "grey";
-            ctx.fillRect(c * this.SIZE, l * this.SIZE, this.SIZE, this.SIZE);
-            ctx.lineWidth = 1;
             ctx.strokeStyle = "black";
-            ctx.strokeRect(c * this.SIZE, l * this.SIZE, this.SIZE, this.SIZE);
             break;
 
           case 2:
             ctx.fillStyle = "green";
-            ctx.fillRect(c * this.SIZE, l * this.SIZE, this.SIZE, this.SIZE);
-            ctx.lineWidth = 1;
             ctx.strokeStyle = "darkgreen";
-            ctx.strokeRect(c * this.SIZE, l * this.SIZE, this.SIZE, this.SIZE);
             break;
 
           default:
             ctx.fillStyle = "black";
-            ctx.fillRect(c * this.SIZE, l * this.SIZE, this.SIZE, this.SIZE);
-            ctx.lineWidth = 1;
             ctx.strokeStyle = "grey";
-            ctx.strokeRect(c * this.SIZE, l * this.SIZE, this.SIZE, this.SIZE);
         }
+        ctx.lineWidth = 1;
+        ctx.fillRect(c * this.SIZE, l * this.SIZE, this.SIZE, this.SIZE);
+        ctx.strokeRect(c * this.SIZE, l * this.SIZE, this.SIZE, this.SIZE);
       }
     }
   }
