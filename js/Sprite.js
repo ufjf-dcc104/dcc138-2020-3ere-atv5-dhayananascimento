@@ -31,10 +31,10 @@ export default class Sprite {
 
   colidiuCom(outro) {
     return !(
-      this.x > outro.x + outro.w ||
-      this.x + this.w < outro.x ||
-      this.y > outro.y + outro.h ||
-      this.y + this.h < outro.y
+      this.x - this.w / 2 > outro.x + outro.w / 2 ||
+      this.x + this.w / 2 < outro.x - outro.w / 2 ||
+      this.y - this.h / 2 > outro.y + outro.h / 2 ||
+      this.y + this.h / 2 < outro.y - outro.h / 2
     );
   }
 }
