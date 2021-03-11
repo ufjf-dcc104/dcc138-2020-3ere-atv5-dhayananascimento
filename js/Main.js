@@ -1,46 +1,155 @@
 import Cena from "./Cena.js";
+import Mapa from "./Mapa.js";
+import Mixer from "./Mixer.js";
 import Sprite from "./Sprite.js";
 import AssetManager from "./AssetManager.js";
-import Mixer from "./Mixer.js";
-import Mapa from "./Mapa.js";
+import modeloMapa from "../maps/mapa1.js";
 
-import modeloMapa1 from "../maps/mapa1.js";
+const TAMANHO_SPRITE = 20;
+const TAMANHO_TILE = 32;
+const LARGURA_MAPA = 14;
+const ALTURA_MAPA = 10;
+const VELOCIDADE_SPRITE = 10;
 
 const mixer = new Mixer(10);
 const assets = new AssetManager(mixer);
 
-assets.carregaImagem("garota", "assets/girl.png");
 assets.carregaImagem("orc", "assets/orc.png");
+assets.carregaImagem("garota", "assets/girl.png");
 assets.carregaImagem("esqueleto", "assets/skeleton.png");
-assets.carregaAudio("moeda", "assets/coin.wav");
+
 assets.carregaAudio("boom", "assets/boom.wav");
+assets.carregaAudio("moeda", "assets/coin.wav");
 
 const canvas = document.querySelector("canvas");
-canvas.width = 14 * 32;
-canvas.height = 10 * 32;
-const cena1 = new Cena(canvas, assets);
+canvas.width = LARGURA_MAPA * TAMANHO_TILE;
+canvas.height = ALTURA_MAPA * TAMANHO_TILE;
+const cena = new Cena(canvas, assets);
 
-const mapa1 = new Mapa(10, 14, 32);
-mapa1.carregaMapa(modeloMapa1);
-cena1.configuraMapa(mapa1);
+const mapa = new Mapa(ALTURA_MAPA, LARGURA_MAPA, TAMANHO_TILE);
+mapa.carregaMapa(modeloMapa);
+cena.configuraMapa(mapa);
 
-const pc = new Sprite({ x: 50, y: 150, vx: 10 });
-const en1 = new Sprite({ x: 140, vx: -10, color: "red" });
+function criaSprite() {
+  let sprite_x, sprite_y;
+  const sprite_vx =
+    Math.random() * (VELOCIDADE_SPRITE - -VELOCIDADE_SPRITE) +
+    -VELOCIDADE_SPRITE;
+  const sprite_vy =
+    Math.random() * (VELOCIDADE_SPRITE - -VELOCIDADE_SPRITE) +
+    -VELOCIDADE_SPRITE;
 
-cena1.adicionar(pc);
-cena1.adicionar(en1);
-cena1.adicionar(new Sprite({ x: 115, y: 70, vy: 10, color: "red" }));
-cena1.adicionar(new Sprite({ x: 115, y: 160, vy: -10, color: "red" }));
+  let posicaoMapaLinhaEsquerdaTopo,
+    posicaoMapaColunaEsquerdaTopo,
+    posicaoMapaLinhaEsquerdaBaixo,
+    posicaoMapaColunaEsquerdaBaixo;
 
-cena1.iniciar();
+  let posicaoMapaLinhaDireitaTopo,
+    posicaoMapaColunaDireitaTopo,
+    posicaoMapaLinhaDireitaBaixo,
+    posicaoMapaColunaDireitaBaixo;
+
+  let valorMapaEsquerdaTopo,
+    valorMapaEsquerdaBaixo,
+    valorMapaDireitaTopo,
+    valorMapaDireitaBaixo;
+
+  do {
+    sprite_x = Math.floor(
+      Math.random() * ((LARGURA_MAPA - 1) * TAMANHO_TILE - TAMANHO_TILE) +
+        TAMANHO_TILE
+    );
+    sprite_y = Math.floor(
+      Math.random() * ((ALTURA_MAPA - 1) * TAMANHO_TILE - TAMANHO_TILE) +
+        TAMANHO_TILE
+    );
+
+    sprite_x -= TAMANHO_SPRITE / 2;
+    sprite_y -= TAMANHO_SPRITE / 2;
+
+    const linhaTopo =
+      sprite_y % TAMANHO_TILE == 0
+        ? sprite_y / TAMANHO_TILE - 1
+        : sprite_y / TAMANHO_TILE;
+
+    const linhaBaixo =
+      (sprite_y + TAMANHO_SPRITE) % TAMANHO_TILE == 0
+        ? (sprite_y + TAMANHO_SPRITE) / TAMANHO_TILE - 1
+        : (sprite_y + TAMANHO_SPRITE) / TAMANHO_TILE;
+
+    const colunaEsquerda =
+      sprite_x % TAMANHO_TILE == 0
+        ? sprite_x / TAMANHO_TILE - 1
+        : sprite_x / TAMANHO_TILE;
+
+    const colunaDireita =
+      (sprite_x + TAMANHO_SPRITE) % TAMANHO_TILE == 0
+        ? (sprite_x + TAMANHO_SPRITE) / TAMANHO_TILE - 1
+        : (sprite_x + TAMANHO_SPRITE) / TAMANHO_TILE;
+
+    posicaoMapaLinhaEsquerdaTopo = Math.floor(linhaTopo);
+    posicaoMapaColunaEsquerdaTopo = Math.floor(colunaEsquerda);
+
+    posicaoMapaLinhaEsquerdaBaixo = Math.floor(linhaBaixo);
+    posicaoMapaColunaEsquerdaBaixo = Math.floor(colunaEsquerda);
+
+    posicaoMapaLinhaDireitaTopo = Math.floor(linhaTopo);
+    posicaoMapaColunaDireitaTopo = Math.floor(colunaDireita);
+
+    posicaoMapaLinhaDireitaBaixo = Math.floor(linhaBaixo);
+    posicaoMapaColunaDireitaBaixo = Math.floor(colunaDireita);
+
+    valorMapaEsquerdaTopo =
+      modeloMapa?.[posicaoMapaLinhaEsquerdaTopo]?.[
+        posicaoMapaColunaEsquerdaTopo
+      ];
+    valorMapaEsquerdaBaixo =
+      modeloMapa?.[posicaoMapaLinhaEsquerdaBaixo]?.[
+        posicaoMapaColunaEsquerdaBaixo
+      ];
+    valorMapaDireitaTopo =
+      modeloMapa?.[posicaoMapaLinhaDireitaTopo]?.[posicaoMapaColunaDireitaTopo];
+    valorMapaDireitaBaixo =
+      modeloMapa?.[posicaoMapaLinhaDireitaBaixo]?.[
+        posicaoMapaColunaDireitaBaixo
+      ];
+  } while (
+    valorMapaEsquerdaTopo === 1 ||
+    valorMapaEsquerdaTopo === 2 ||
+    valorMapaEsquerdaTopo === undefined ||
+    valorMapaEsquerdaBaixo === 1 ||
+    valorMapaEsquerdaBaixo === 2 ||
+    valorMapaEsquerdaBaixo === undefined ||
+    valorMapaDireitaTopo === 1 ||
+    valorMapaDireitaTopo === 2 ||
+    valorMapaDireitaTopo === undefined ||
+    valorMapaDireitaBaixo === 1 ||
+    valorMapaDireitaBaixo === 2 ||
+    valorMapaDireitaBaixo === undefined
+  );
+
+  const sprite = new Sprite({
+    x: sprite_x + TAMANHO_SPRITE / 2,
+    y: sprite_y + TAMANHO_SPRITE / 2,
+    vx: sprite_vx,
+    vy: sprite_vy,
+    color: "red",
+  });
+
+  cena.adicionar(sprite);
+}
+
+criaSprite();
+
+cena.iniciar();
 
 document.addEventListener("keydown", (e) => {
   switch (e.key) {
     case "s":
-      cena1.iniciar();
+      cena.iniciar();
       break;
     case "S":
-      cena1.parar();
+      cena.parar();
       break;
     case "c":
       assets.play("moeda");
