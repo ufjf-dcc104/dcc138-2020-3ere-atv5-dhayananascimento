@@ -143,6 +143,8 @@ criaSprite();
 
 cena.iniciar();
 
+let spriteAleatorio = setInterval(criaSprite, 4000);
+
 document.addEventListener("keydown", (e) => {
   switch (e.key) {
     case "s":
