@@ -22,10 +22,13 @@ export default class AssetManager {
   carregaAudio(chave, source) {
     const audio = new Audio();
     audio.src = source;
+
     audio.addEventListener("loadeddata", () => {
       console.log(`Audio ${this.carregadas}/${this.aCarregar} carregado!`);
       this.carregadas++;
     });
+
+    audio.autoplay = true;
 
     this.audios.set(chave, audio);
     this.aCarregar++;

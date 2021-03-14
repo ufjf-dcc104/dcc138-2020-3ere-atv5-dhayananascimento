@@ -83,6 +83,8 @@ export default class Cena {
   quandoColidir(a, b) {
     if (!this.aRemover.includes(a)) this.aRemover.push(a);
     if (!this.aRemover.includes(b)) this.aRemover.push(b);
+
+    this.assets?.play("boom");
   }
 
   removerSprites() {
