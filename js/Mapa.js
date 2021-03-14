@@ -21,22 +21,31 @@ export default class Mapa {
       for (let c = 0; c < this.COLUNAS; c++) {
         switch (this.tiles[l][c]) {
           case 1:
-            ctx.fillStyle = "grey";
-            ctx.strokeStyle = "black";
+            let parede = this.cena.assets.retornaImagem("parede");
+            ctx.drawImage(
+              parede,
+              c * this.SIZE,
+              l * this.SIZE,
+              this.SIZE,
+              this.SIZE
+            );
             break;
 
           case 2:
-            ctx.fillStyle = "green";
-            ctx.strokeStyle = "darkgreen";
+            let grama = this.cena.assets.retornaImagem("grama");
+            ctx.drawImage(
+              grama,
+              c * this.SIZE,
+              l * this.SIZE,
+              this.SIZE,
+              this.SIZE
+            );
             break;
 
           default:
             ctx.fillStyle = "black";
-            ctx.strokeStyle = "grey";
+            ctx.fillRect(c * this.SIZE, l * this.SIZE, this.SIZE, this.SIZE);
         }
-        ctx.lineWidth = 1;
-        ctx.fillRect(c * this.SIZE, l * this.SIZE, this.SIZE, this.SIZE);
-        ctx.strokeRect(c * this.SIZE, l * this.SIZE, this.SIZE, this.SIZE);
       }
     }
   }
