@@ -5,6 +5,7 @@ import Sprite from "./Sprite.js";
 import AssetManager from "./AssetManager.js";
 import modeloMapa from "../maps/mapa1.js";
 import InputManager from "./InputManager.js";
+import Game from "./Game.js";
 
 const TAMANHO_SPRITE = 20;
 const TAMANHO_TILE = 32;
@@ -36,7 +37,9 @@ input.configuraTeclado({
   ArrowDown: "MOVE_BAIXO",
 });
 
+const game = new Game(canvas, assets, input);
 const cena = new Cena(canvas, assets);
+game.adicionarCena("jogo", cena);
 
 const mapa = new Mapa(ALTURA_MAPA, LARGURA_MAPA, TAMANHO_TILE);
 mapa.carregaMapa(modeloMapa);
