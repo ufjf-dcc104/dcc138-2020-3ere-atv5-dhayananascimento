@@ -6,6 +6,8 @@ import AssetManager from "./AssetManager.js";
 import modeloMapa from "../maps/mapa1.js";
 import InputManager from "./InputManager.js";
 import Game from "./Game.js";
+import CenaJogo from "./CenaJogo.js";
+import CenaCarregando from "./CenaCarregando.js";
 
 const TAMANHO_SPRITE = 20;
 const TAMANHO_TILE = 32;
@@ -38,12 +40,14 @@ input.configuraTeclado({
 });
 
 const game = new Game(canvas, assets, input);
-const cena = new Cena(canvas, assets);
-game.adicionarCena("jogo", cena);
+const cena0 = new CenaCarregando(canvas, assets);
+const cena1 = new CenaJogo(canvas, assets);
+game.adicionarCena("carregando", cena0);
+game.adicionarCena("jogo", cena1);
 
 const mapa = new Mapa(ALTURA_MAPA, LARGURA_MAPA, TAMANHO_TILE);
 mapa.carregaMapa(modeloMapa);
-cena.configuraMapa(mapa);
+cena1.configuraMapa(mapa);
 
 // function criaSprite() {
 //   let sprite_x, sprite_y;
@@ -151,14 +155,14 @@ cena.configuraMapa(mapa);
 //     color: "red",
 //   });
 
-//   cena.adicionar(sprite);
+//   cena1.adicionar(sprite);
 // }
 
 const pc = new Sprite({
   x: 80,
   y: 50,
 });
-cena.adicionar(pc);
+cena1.adicionar(pc);
 pc.controlar = movimentaSprite;
 
 const en1 = new Sprite({
@@ -166,7 +170,7 @@ const en1 = new Sprite({
   y: 200,
   color: "red",
 });
-cena.adicionar(en1);
+cena1.adicionar(en1);
 en1.controlar = persegueSprite;
 
 function persegueSprite(dt) {
