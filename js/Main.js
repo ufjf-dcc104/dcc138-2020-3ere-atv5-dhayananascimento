@@ -32,6 +32,8 @@ canvas.height = ALTURA_MAPA * TAMANHO_TILE;
 input.configuraTeclado({
   ArrowLeft: "MOVE_ESQUERDA",
   ArrowRight: "MOVE_DIREITA",
+  ArrowUp: "MOVE_CIMA",
+  ArrowDown: "MOVE_BAIXO",
 });
 
 const cena = new Cena(canvas, assets);
@@ -153,6 +155,14 @@ function criaSprite() {
       this.vx = 50;
     } else {
       this.vx = 0;
+    }
+
+    if (input.comandos.get("MOVE_CIMA")) {
+      this.vy = -50;
+    } else if (input.comandos.get("MOVE_BAIXO")) {
+      this.vy = 50;
+    } else {
+      this.vy = 0;
     }
   };
 
