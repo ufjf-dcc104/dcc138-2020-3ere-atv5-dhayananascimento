@@ -4,6 +4,7 @@ import Mixer from "./Mixer.js";
 import Sprite from "./Sprite.js";
 import AssetManager from "./AssetManager.js";
 import modeloMapa from "../maps/mapa1.js";
+import InputManager from "./InputManager.js";
 
 const TAMANHO_SPRITE = 20;
 const TAMANHO_TILE = 32;
@@ -11,6 +12,7 @@ const LARGURA_MAPA = 14;
 const ALTURA_MAPA = 10;
 const VELOCIDADE_SPRITE = 10;
 
+const input = new InputManager();
 const mixer = new Mixer(10);
 const assets = new AssetManager(mixer);
 
@@ -26,6 +28,12 @@ assets.carregaAudio("moeda", "assets/coin.wav");
 const canvas = document.querySelector("canvas");
 canvas.width = LARGURA_MAPA * TAMANHO_TILE;
 canvas.height = ALTURA_MAPA * TAMANHO_TILE;
+
+input.configuraTeclado({
+  "ArrowLeft": " MOVE_ESQUERDA",
+  "ArrowRight": "MOVE_DIREITA",
+});
+
 const cena = new Cena(canvas, assets);
 
 const mapa = new Mapa(ALTURA_MAPA, LARGURA_MAPA, TAMANHO_TILE);
