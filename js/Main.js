@@ -30,8 +30,8 @@ canvas.width = LARGURA_MAPA * TAMANHO_TILE;
 canvas.height = ALTURA_MAPA * TAMANHO_TILE;
 
 input.configuraTeclado({
-  "ArrowLeft": " MOVE_ESQUERDA",
-  "ArrowRight": "MOVE_DIREITA",
+  ArrowLeft: "MOVE_ESQUERDA",
+  ArrowRight: "MOVE_DIREITA",
 });
 
 const cena = new Cena(canvas, assets);
@@ -141,10 +141,20 @@ function criaSprite() {
   const sprite = new Sprite({
     x: sprite_x + TAMANHO_SPRITE / 2,
     y: sprite_y + TAMANHO_SPRITE / 2,
-    vx: sprite_vx,
-    vy: sprite_vy,
+    // vx: sprite_vx,
+    // vy: sprite_vy,
     color: "red",
   });
+
+  sprite.controlar = function (dt) {
+    if (input.comandos.get("MOVE_ESQUERDA")) {
+      this.vx = -50;
+    } else if (input.comandos.get("MOVE_DIREITA")) {
+      this.vx = 50;
+    } else {
+      this.vx = 0;
+    }
+  };
 
   cena.adicionar(sprite);
 }
@@ -153,7 +163,7 @@ criaSprite();
 
 cena.iniciar();
 
-setInterval(criaSprite, 4000);
+// setInterval(criaSprite, 4000);
 
 document.addEventListener("keydown", (e) => {
   switch (e.key) {
