@@ -192,7 +192,7 @@ function movimentaSprite(dt) {
   }
 }
 
-cena.iniciar();
+game.iniciar();
 
 // criaSprite("jogador");
 // setInterval(criaSprite, 4000);
@@ -200,10 +200,10 @@ cena.iniciar();
 document.addEventListener("keydown", (e) => {
   switch (e.key) {
     case "s":
-      cena.iniciar();
+      game.iniciar();
       break;
     case "S":
-      cena.parar();
+      game.parar();
       break;
     case "c":
       assets.play("moeda");
