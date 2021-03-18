@@ -8,6 +8,7 @@ import InputManager from "./InputManager.js";
 import Game from "./Game.js";
 import CenaJogo from "./CenaJogo.js";
 import CenaCarregando from "./CenaCarregando.js";
+import CenaFim from "./CenaFim.js";
 
 const TAMANHO_SPRITE = 20;
 const TAMANHO_TILE = 32;
@@ -41,14 +42,12 @@ input.configuraTeclado({
 });
 
 const game = new Game(canvas, assets, input);
-const cena0 = new CenaCarregando(canvas, assets);
-const cena1 = new CenaJogo(canvas, assets);
+const cena0 = new CenaCarregando();
+const cena1 = new CenaJogo();
+const cena2 = new CenaFim();
 game.adicionarCena("carregando", cena0);
 game.adicionarCena("jogo", cena1);
-
-const mapa = new Mapa(ALTURA_MAPA, LARGURA_MAPA, TAMANHO_TILE);
-mapa.carregaMapa(modeloMapa);
-cena1.configuraMapa(mapa);
+game.adicionarCena("fim", cena2);
 
 // function criaSprite() {
 //   let sprite_x, sprite_y;
@@ -159,43 +158,7 @@ cena1.configuraMapa(mapa);
 //   cena1.adicionar(sprite);
 // }
 
-const pc = new Sprite({
-  x: 80,
-  y: 50,
-});
-cena1.adicionar(pc);
-pc.controlar = movimentaSprite;
 
-const en1 = new Sprite({
-  x: 220,
-  y: 200,
-  color: "red",
-});
-cena1.adicionar(en1);
-en1.controlar = persegueSprite;
-
-function persegueSprite(dt) {
-  this.vx = 25 * Math.sign(pc.x - this.x);
-  this.vy = 25 * Math.sign(pc.y - this.y);
-}
-
-function movimentaSprite(dt) {
-  if (input.comandos.get("MOVE_ESQUERDA")) {
-    this.vx = -50;
-  } else if (input.comandos.get("MOVE_DIREITA")) {
-    this.vx = 50;
-  } else {
-    this.vx = 0;
-  }
-
-  if (input.comandos.get("MOVE_CIMA")) {
-    this.vy = -50;
-  } else if (input.comandos.get("MOVE_BAIXO")) {
-    this.vy = 50;
-  } else {
-    this.vy = 0;
-  }
-}
 
 game.iniciar();
 
