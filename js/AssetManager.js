@@ -26,9 +26,9 @@ export default class AssetManager {
     audio.addEventListener("loadeddata", () => {
       console.log(`Audio ${this.carregadas}/${this.aCarregar} carregado!`);
       this.carregadas++;
+      audio.autoplay = true;
     });
 
-    audio.autoplay = true;
 
     this.audios.set(chave, audio);
     this.aCarregar++;
