@@ -29,7 +29,6 @@ export default class AssetManager {
       audio.autoplay = true;
     });
 
-
     this.audios.set(chave, audio);
     this.aCarregar++;
   }
