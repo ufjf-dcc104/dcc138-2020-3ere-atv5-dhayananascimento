@@ -18,6 +18,7 @@ export default class CenaJogo extends Cena {
   preparar() {
     super.preparar();
 
+    const TAMANHO_SPRITE = 20;
     const TAMANHO_TILE = 32;
     const LARGURA_MAPA = 14;
     const ALTURA_MAPA = 10;
@@ -28,27 +29,24 @@ export default class CenaJogo extends Cena {
 
     const cena = this;
 
+    const { x, y } = this.geraValorAleatorio(
+      TAMANHO_SPRITE,
+      TAMANHO_TILE,
+      LARGURA_MAPA,
+      ALTURA_MAPA
+    );
+
+    this.pc_x = x;
+    this.pc_y = y;
+
     const pc = new Sprite({
-      x: 80,
-      y: 50,
+      x,
+      y,
+      color: "pink",
+      tags: ["pc"],
+      controlar: movimentaSprite,
     });
-    pc.tags.add("pc");
-    pc.controlar = movimentaSprite;
     this.adicionar(pc);
-
-    const en1 = new Sprite({
-      x: 220,
-      y: 200,
-      color: "red",
-      controlar: persegueSprite,
-      tags: ["enemy"],
-    });
-    this.adicionar(en1);
-
-    function persegueSprite(dt) {
-      this.vx = 25 * Math.sign(pc.x - this.x);
-      this.vy = 25 * Math.sign(pc.y - this.y);
-    }
 
     function movimentaSprite(dt) {
       if (cena.input.comandos.get("MOVE_ESQUERDA")) {
@@ -67,5 +65,116 @@ export default class CenaJogo extends Cena {
         this.vy = 0;
       }
     }
+  }
+
+  geraValorAleatorio(TAMANHO_SPRITE, TAMANHO_TILE, LARGURA_MAPA, ALTURA_MAPA) {
+    let sprite_x = 0,
+      sprite_y = 0;
+
+    let valorMapaEsquerdaTopo,
+      valorMapaEsquerdaBaixo,
+      valorMapaDireitaTopo,
+      valorMapaDireitaBaixo;
+
+    do {
+      sprite_x = Math.floor(
+        Math.random() * ((LARGURA_MAPA - 1) * TAMANHO_TILE - TAMANHO_TILE) +
+          TAMANHO_TILE
+      );
+
+      sprite_y = Math.floor(
+        Math.random() * ((ALTURA_MAPA - 1) * TAMANHO_TILE - TAMANHO_TILE) +
+          TAMANHO_TILE
+      );
+      sprite_x -= TAMANHO_SPRITE / 2;
+      sprite_y -= TAMANHO_SPRITE / 2;
+
+      const linhaTopo =
+        sprite_y % TAMANHO_TILE == 0
+          ? sprite_y / TAMANHO_TILE - 1
+          : sprite_y / TAMANHO_TILE;
+
+      const linhaBaixo =
+        (sprite_y + TAMANHO_SPRITE) % TAMANHO_TILE == 0
+          ? (sprite_y + TAMANHO_SPRITE) / TAMANHO_TILE - 1
+          : (sprite_y + TAMANHO_SPRITE) / TAMANHO_TILE;
+
+      const colunaEsquerda =
+        sprite_x % TAMANHO_TILE == 0
+          ? sprite_x / TAMANHO_TILE - 1
+          : sprite_x / TAMANHO_TILE;
+
+      const colunaDireita =
+        (sprite_x + TAMANHO_SPRITE) % TAMANHO_TILE == 0
+          ? (sprite_x + TAMANHO_SPRITE) / TAMANHO_TILE - 1
+          : (sprite_x + TAMANHO_SPRITE) / TAMANHO_TILE;
+
+      valorMapaEsquerdaTopo =
+        modeloMapa?.[Math.floor(linhaTopo)]?.[Math.floor(colunaEsquerda)];
+
+      valorMapaEsquerdaBaixo =
+        modeloMapa?.[Math.floor(linhaBaixo)]?.[Math.floor(colunaEsquerda)];
+
+      valorMapaDireitaTopo =
+        modeloMapa?.[Math.floor(linhaTopo)]?.[Math.floor(colunaDireita)];
+
+      valorMapaDireitaBaixo =
+        modeloMapa?.[Math.floor(linhaBaixo)]?.[Math.floor(colunaDireita)];
+    } while (
+      valorMapaEsquerdaTopo === 1 ||
+      valorMapaEsquerdaTopo === 2 ||
+      valorMapaEsquerdaTopo === undefined ||
+      valorMapaEsquerdaBaixo === 1 ||
+      valorMapaEsquerdaBaixo === 2 ||
+      valorMapaEsquerdaBaixo === undefined ||
+      valorMapaDireitaTopo === 1 ||
+      valorMapaDireitaTopo === 2 ||
+      valorMapaDireitaTopo === undefined ||
+      valorMapaDireitaBaixo === 1 ||
+      valorMapaDireitaBaixo === 2 ||
+      valorMapaDireitaBaixo === undefined
+    );
+
+    const valores = {
+      x: sprite_x + TAMANHO_SPRITE / 2,
+      y: sprite_y + TAMANHO_SPRITE / 2,
+    };
+
+    return valores;
+  }
+
+  criaInimigo() {
+    const TAMANHO_SPRITE = 20;
+    const TAMANHO_TILE = 32;
+    const LARGURA_MAPA = 14;
+    const ALTURA_MAPA = 10;
+
+    const cena = this;
+
+    function persegueSprite(dt) {
+      this.vx = 25 * Math.sign(cena.pc_x - this.x);
+      this.vy = 25 * Math.sign(cena.pc_y - this.y);
+    }
+
+    const { x, y } = cena.geraValorAleatorio(
+      TAMANHO_SPRITE,
+      TAMANHO_TILE,
+      LARGURA_MAPA,
+      ALTURA_MAPA
+    );
+
+    const eny = new Sprite({
+      x,
+      y,
+      color: "red",
+      tags: ["enemy"],
+      controlar: persegueSprite,
+    });
+    cena.adicionar(eny);
+  }
+
+  parar() {
+    super.parar();
+    clearInterval(this.inimigos);
   }
 }

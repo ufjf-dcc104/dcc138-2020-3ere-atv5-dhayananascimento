@@ -50,7 +50,7 @@ export default class Cena {
     this.checaColisao();
     this.removerSprites();
 
-    if (this.rodando) this.iniciar();
+    if (this.pronto) this.iniciar();
     this.t0 = t;
   }
 
@@ -60,6 +60,7 @@ export default class Cena {
   }
 
   parar() {
+    this.pronto = false;
     this.rodando = false;
     cancelAnimationFrame(this.idAnim);
     this.t0 = null;
@@ -106,6 +107,10 @@ export default class Cena {
     this.dt = 0;
     this.idAnim = null;
     this.mapa = null;
-    this.rodando = true;
+    this.pronto = true;
+    this.inimigos = null;
+    this.rodando = false;
+    this.pc_x = null;
+    this.pc_y = null;
   }
 }

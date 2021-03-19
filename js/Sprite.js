@@ -8,7 +8,7 @@ export default class Sprite {
     vy = 0,
     w = 20,
     h = 20,
-    color = "white",
+    color = "red",
     tags = [],
     controlar = () => {},
   } = {}) {
@@ -48,6 +48,11 @@ export default class Sprite {
   mover(dt) {
     this.x = this.x + this.vx * dt;
     this.y = this.y + this.vy * dt;
+
+    if (this.tags.has("pc")) {
+      this.cena.pc_x = this.x;
+      this.cena.pc_y = this.y;
+    }
 
     this.mx = Math.floor(this.x / this.cena.mapa.SIZE);
     this.my = Math.floor(this.y / this.cena.mapa.SIZE);
