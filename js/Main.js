@@ -2,7 +2,7 @@ import Mixer from "./Mixer.js";
 import AssetManager from "./AssetManager.js";
 import InputManager from "./InputManager.js";
 import Game from "./Game.js";
-import CenaJogo from "./CenaJogo.js";
+import CenaJogo01 from "./CenaJogo01.js";
 import CenaCarregando from "./CenaCarregando.js";
 import CenaFim from "./CenaFim.js";
 
@@ -37,10 +37,10 @@ input.configuraTeclado({
 
 const game = new Game(canvas, assets, input);
 const cena0 = new CenaCarregando();
-const cena1 = new CenaJogo();
+const cena1 = new CenaJogo01();
 const cena2 = new CenaFim();
 game.adicionarCena("carregando", cena0);
-game.adicionarCena("jogo", cena1);
+game.adicionarCena("jogo_01", cena1);
 game.adicionarCena("fim", cena2);
 
 game.iniciar();

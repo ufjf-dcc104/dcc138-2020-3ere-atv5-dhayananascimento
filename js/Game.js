@@ -27,7 +27,7 @@ export default class Game {
       this.cena.preparar();
       this.iniciar();
 
-      if (chave == "jogo" && this.cena.rodando) {
+      if (chave == "jogo_01" && this.cena.rodando) {
         this.cena.inimigos = setInterval(() => {
           this.cena.criaInimigo();
         }, 4000);

@@ -1,3 +1,5 @@
+import modeloMapa1 from "../maps/mapa1.js";
+
 export default class Cena {
   //Essa classe é responsável por desenhar elementos na tela em uma animação
 
@@ -112,5 +114,6 @@ export default class Cena {
     this.rodando = false;
     this.pc_x = null;
     this.pc_y = null;
+    this.modeloMapa = modeloMapa1;
   }
 }

@@ -1,9 +1,8 @@
 import Cena from "./Cena.js";
 import Mapa from "./Mapa.js";
 import Sprite from "./Sprite.js";
-import modeloMapa from "../maps/mapa1.js";
 
-export default class CenaJogo extends Cena {
+export default class CenaJogo01 extends Cena {
   quandoColidir(a, b) {
     if (!this.aRemover.includes(a)) this.aRemover.push(a);
     if (!this.aRemover.includes(b)) this.aRemover.push(b);
@@ -24,7 +23,7 @@ export default class CenaJogo extends Cena {
     const ALTURA_MAPA = 10;
 
     const mapa = new Mapa(ALTURA_MAPA, LARGURA_MAPA, TAMANHO_TILE);
-    mapa.carregaMapa(modeloMapa);
+    mapa.carregaMapa(this.modeloMapa);
     this.configuraMapa(mapa);
 
     const cena = this;
@@ -110,16 +109,16 @@ export default class CenaJogo extends Cena {
           : (sprite_x + TAMANHO_SPRITE) / TAMANHO_TILE;
 
       valorMapaEsquerdaTopo =
-        modeloMapa?.[Math.floor(linhaTopo)]?.[Math.floor(colunaEsquerda)];
+        this.modeloMapa?.[Math.floor(linhaTopo)]?.[Math.floor(colunaEsquerda)];
 
       valorMapaEsquerdaBaixo =
-        modeloMapa?.[Math.floor(linhaBaixo)]?.[Math.floor(colunaEsquerda)];
+        this.modeloMapa?.[Math.floor(linhaBaixo)]?.[Math.floor(colunaEsquerda)];
 
       valorMapaDireitaTopo =
-        modeloMapa?.[Math.floor(linhaTopo)]?.[Math.floor(colunaDireita)];
+        this.modeloMapa?.[Math.floor(linhaTopo)]?.[Math.floor(colunaDireita)];
 
       valorMapaDireitaBaixo =
-        modeloMapa?.[Math.floor(linhaBaixo)]?.[Math.floor(colunaDireita)];
+        this.modeloMapa?.[Math.floor(linhaBaixo)]?.[Math.floor(colunaDireita)];
     } while (
       valorMapaEsquerdaTopo === 1 ||
       valorMapaEsquerdaTopo === 2 ||
