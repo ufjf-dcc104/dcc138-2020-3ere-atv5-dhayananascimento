@@ -1,9 +1,11 @@
 import Mixer from "./Mixer.js";
 import AssetManager from "./AssetManager.js";
 import InputManager from "./InputManager.js";
+
 import Game from "./Game.js";
-import CenaJogo01 from "./CenaJogo01.js";
 import CenaCarregando from "./CenaCarregando.js";
+import CenaJogo01 from "./CenaJogo01.js";
+import CenaJogo02 from "./CenaJogo02.js";
 import CenaFim from "./CenaFim.js";
 
 const TAMANHO_TILE = 32;
@@ -38,10 +40,12 @@ input.configuraTeclado({
 const game = new Game(canvas, assets, input);
 const cena0 = new CenaCarregando();
 const cena1 = new CenaJogo01();
-const cena2 = new CenaFim();
+const cena2 = new CenaJogo02();
+const cena3 = new CenaFim();
 game.adicionarCena("carregando", cena0);
 game.adicionarCena("jogo_01", cena1);
-game.adicionarCena("fim", cena2);
+game.adicionarCena("jogo_02", cena2);
+game.adicionarCena("fim", cena3);
 
 game.iniciar();
 

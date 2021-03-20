@@ -8,7 +8,6 @@ export default class Sprite {
     vy = 0,
     w = 20,
     h = 20,
-    color = "red",
     tags = [],
     controlar = () => {},
   } = {}) {
@@ -20,7 +19,6 @@ export default class Sprite {
 
     this.w = w;
     this.h = h;
-    this.color = color;
 
     this.cena = null;
 
@@ -60,6 +58,8 @@ export default class Sprite {
       imagem = this.cena.assets.retornaImagem("garota");
     } else if (this.tags.has("enemy")) {
       imagem = this.cena.assets.retornaImagem("orc");
+    } else if (this.tags.has("especial")) {
+      imagem = this.cena.assets.retornaImagem("esqueleto");
     }
 
     ctx.drawImage(

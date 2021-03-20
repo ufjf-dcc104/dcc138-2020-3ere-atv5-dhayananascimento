@@ -2,9 +2,9 @@ import Cena from "./Cena.js";
 import Mapa from "./Mapa.js";
 import Sprite from "./Sprite.js";
 
-import modeloMapa from "../maps/mapa1.js";
+import modeloMapa from "../maps/mapa2.js";
 
-export default class CenaJogo01 extends Cena {
+export default class CenaJogo02 extends Cena {
   quandoColidir(a, b) {
     if (!this.aRemover.includes(a)) this.aRemover.push(a);
     if (!this.aRemover.includes(b)) this.aRemover.push(b);
@@ -12,11 +12,6 @@ export default class CenaJogo01 extends Cena {
     if (a.tags.has("pc") && b.tags.has("enemy")) {
       this.assets?.play("boom");
       this.game.selecionaCena("fim");
-    }
-
-    if (a.tags.has("pc") && b.tags.has("especial")) {
-      this.assets?.play("moeda");
-      this.game.selecionaCena("jogo_02");
     }
   }
 
@@ -32,7 +27,6 @@ export default class CenaJogo01 extends Cena {
     this.configuraMapa(mapa);
 
     this.criaJogador();
-    this.criaSpriteEspecial();
   }
 
   geraValorAleatorio(TAMANHO_SPRITE, TAMANHO_TILE, LARGURA_MAPA, ALTURA_MAPA) {
@@ -155,28 +149,6 @@ export default class CenaJogo01 extends Cena {
         this.vy = 0;
       }
     }
-  }
-
-  criaSpriteEspecial() {
-    const TAMANHO_SPRITE = 20;
-    const TAMANHO_TILE = 32;
-    const LARGURA_MAPA = 14;
-    const ALTURA_MAPA = 10;
-
-    const { x, y } = this.geraValorAleatorio(
-      TAMANHO_SPRITE,
-      TAMANHO_TILE,
-      LARGURA_MAPA,
-      ALTURA_MAPA
-    );
-
-    const spriteEspecial = new Sprite({
-      x,
-      y,
-      tags: ["especial"],
-    });
-
-    this.adicionar(spriteEspecial);
   }
 
   criaInimigo() {
