@@ -17,7 +17,6 @@ export default class CenaJogo01 extends Cena {
   preparar() {
     super.preparar();
 
-    const TAMANHO_SPRITE = 20;
     const TAMANHO_TILE = 32;
     const LARGURA_MAPA = 14;
     const ALTURA_MAPA = 10;
@@ -26,44 +25,7 @@ export default class CenaJogo01 extends Cena {
     mapa.carregaMapa(this.modeloMapa);
     this.configuraMapa(mapa);
 
-    const cena = this;
-
-    const { x, y } = this.geraValorAleatorio(
-      TAMANHO_SPRITE,
-      TAMANHO_TILE,
-      LARGURA_MAPA,
-      ALTURA_MAPA
-    );
-
-    this.pc_x = x;
-    this.pc_y = y;
-
-    const pc = new Sprite({
-      x,
-      y,
-      color: "pink",
-      tags: ["pc"],
-      controlar: movimentaSprite,
-    });
-    this.adicionar(pc);
-
-    function movimentaSprite(dt) {
-      if (cena.input.comandos.get("MOVE_ESQUERDA")) {
-        this.vx = -50;
-      } else if (cena.input.comandos.get("MOVE_DIREITA")) {
-        this.vx = 50;
-      } else {
-        this.vx = 0;
-      }
-
-      if (cena.input.comandos.get("MOVE_CIMA")) {
-        this.vy = -50;
-      } else if (cena.input.comandos.get("MOVE_BAIXO")) {
-        this.vy = 50;
-      } else {
-        this.vy = 0;
-      }
-    }
+    this.criaJogador();
   }
 
   geraValorAleatorio(TAMANHO_SPRITE, TAMANHO_TILE, LARGURA_MAPA, ALTURA_MAPA) {
@@ -108,17 +70,21 @@ export default class CenaJogo01 extends Cena {
           ? (sprite_x + TAMANHO_SPRITE) / TAMANHO_TILE - 1
           : (sprite_x + TAMANHO_SPRITE) / TAMANHO_TILE;
 
-      valorMapaEsquerdaTopo =
-        this.modeloMapa?.[Math.floor(linhaTopo)]?.[Math.floor(colunaEsquerda)];
+      valorMapaEsquerdaTopo = this.modeloMapa?.[Math.floor(linhaTopo)]?.[
+        Math.floor(colunaEsquerda)
+      ];
 
-      valorMapaEsquerdaBaixo =
-        this.modeloMapa?.[Math.floor(linhaBaixo)]?.[Math.floor(colunaEsquerda)];
+      valorMapaEsquerdaBaixo = this.modeloMapa?.[Math.floor(linhaBaixo)]?.[
+        Math.floor(colunaEsquerda)
+      ];
 
-      valorMapaDireitaTopo =
-        this.modeloMapa?.[Math.floor(linhaTopo)]?.[Math.floor(colunaDireita)];
+      valorMapaDireitaTopo = this.modeloMapa?.[Math.floor(linhaTopo)]?.[
+        Math.floor(colunaDireita)
+      ];
 
-      valorMapaDireitaBaixo =
-        this.modeloMapa?.[Math.floor(linhaBaixo)]?.[Math.floor(colunaDireita)];
+      valorMapaDireitaBaixo = this.modeloMapa?.[Math.floor(linhaBaixo)]?.[
+        Math.floor(colunaDireita)
+      ];
     } while (
       valorMapaEsquerdaTopo === 1 ||
       valorMapaEsquerdaTopo === 2 ||
@@ -140,6 +106,52 @@ export default class CenaJogo01 extends Cena {
     };
 
     return valores;
+  }
+
+  criaJogador() {
+    const cena = this;
+    const TAMANHO_SPRITE = 20;
+    const TAMANHO_TILE = 32;
+    const LARGURA_MAPA = 14;
+    const ALTURA_MAPA = 10;
+
+    const { x, y } = this.geraValorAleatorio(
+      TAMANHO_SPRITE,
+      TAMANHO_TILE,
+      LARGURA_MAPA,
+      ALTURA_MAPA
+    );
+
+    this.pc_x = x;
+    this.pc_y = y;
+
+    const pc = new Sprite({
+      x,
+      y,
+      color: "pink",
+      tags: ["pc"],
+      controlar: movimentaSprite,
+    });
+
+    this.adicionar(pc);
+
+    function movimentaSprite(dt) {
+      if (cena.input.comandos.get("MOVE_ESQUERDA")) {
+        this.vx = -50;
+      } else if (cena.input.comandos.get("MOVE_DIREITA")) {
+        this.vx = 50;
+      } else {
+        this.vx = 0;
+      }
+
+      if (cena.input.comandos.get("MOVE_CIMA")) {
+        this.vy = -50;
+      } else if (cena.input.comandos.get("MOVE_BAIXO")) {
+        this.vy = 50;
+      } else {
+        this.vy = 0;
+      }
+    }
   }
 
   criaInimigo() {
