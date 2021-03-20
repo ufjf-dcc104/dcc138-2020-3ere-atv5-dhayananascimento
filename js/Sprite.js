@@ -14,16 +14,39 @@ export default class Sprite {
   } = {}) {
     this.x = x;
     this.y = y;
+
     this.vx = vx;
     this.vy = vy;
+
     this.w = w;
     this.h = h;
     this.color = color;
+
     this.cena = null;
+
     this.mx = 0;
     this.my = 0;
+
     this.controlar = controlar;
     this.tags = new Set();
+
+    this.pose = 7;
+    this.quadro = 0;
+
+    this.POSES = [
+      { qmax: 7, pv: 8 },
+      { qmax: 7, pv: 8 },
+      { qmax: 7, pv: 8 },
+      { qmax: 7, pv: 8 },
+      { qmax: 8, pv: 8 },
+      { qmax: 8, pv: 8 },
+      { qmax: 8, pv: 8 },
+      { qmax: 8, pv: 8 },
+      { qmax: 9, pv: 8 },
+      { qmax: 9, pv: 8 },
+      { qmax: 9, pv: 8 },
+      { qmax: 9, pv: 8 },
+    ];
 
     tags.forEach((tag) => {
       this.tags.add(tag);
@@ -31,15 +54,26 @@ export default class Sprite {
   }
 
   desenhar(ctx) {
-    ctx.fillStyle = this.color;
-    ctx.fillRect(this.x - this.w / 2, this.y - this.h / 2, this.w, this.h);
+    let imagem;
 
-    ctx.strokeStyle = "blue";
-    ctx.strokeRect(
-      this.mx * this.cena.mapa.SIZE,
-      this.my * this.cena.mapa.SIZE,
-      this.cena.mapa.SIZE,
-      this.cena.mapa.SIZE
+    if (this.tags.has("pc")) {
+      imagem = this.cena.assets.retornaImagem("garota");
+    } else if (this.tags.has("enemy")) {
+      imagem = this.cena.assets.retornaImagem("orc");
+    }
+
+    ctx.drawImage(
+      imagem,
+      //sx, sy, sw, sh
+      Math.floor(this.quadro) * 64,
+      this.pose * 64,
+      64,
+      64,
+      //dx, dy, dw, dh
+      this.x - this.w / 2,
+      this.y - this.h / 2,
+      this.w,
+      this.h
     );
   }
 
@@ -53,6 +87,11 @@ export default class Sprite {
       this.cena.pc_x = this.x;
       this.cena.pc_y = this.y;
     }
+
+    this.quadro =
+      this.quadro > this.POSES[this.pose].qmax - 1
+        ? 0
+        : this.quadro + this.POSES[this.pose].pv * dt;
 
     this.mx = Math.floor(this.x / this.cena.mapa.SIZE);
     this.my = Math.floor(this.y / this.cena.mapa.SIZE);
