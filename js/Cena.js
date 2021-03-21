@@ -63,6 +63,7 @@ export default class Cena {
     this.pronto = false;
     this.rodando = false;
     cancelAnimationFrame(this.idAnim);
+    if(this.inimigos != null) clearInterval(this.inimigos);
     this.t0 = null;
     this.dt = 0;
   }

@@ -28,23 +28,11 @@ export default class Sprite {
     this.controlar = controlar;
     this.tags = new Set();
 
-    this.pose = 7;
+    this.pose = 0;
     this.quadro = 0;
+    this.tamanhoQuadro = 0;
 
-    this.POSES = [
-      { qmax: 7, pv: 8 },
-      { qmax: 7, pv: 8 },
-      { qmax: 7, pv: 8 },
-      { qmax: 7, pv: 8 },
-      { qmax: 8, pv: 8 },
-      { qmax: 8, pv: 8 },
-      { qmax: 8, pv: 8 },
-      { qmax: 8, pv: 8 },
-      { qmax: 9, pv: 8 },
-      { qmax: 9, pv: 8 },
-      { qmax: 9, pv: 8 },
-      { qmax: 9, pv: 8 },
-    ];
+    this.POSES = null;
 
     tags.forEach((tag) => {
       this.tags.add(tag);
@@ -59,16 +47,18 @@ export default class Sprite {
     } else if (this.tags.has("enemy")) {
       imagem = this.cena.assets.retornaImagem("orc");
     } else if (this.tags.has("especial")) {
-      imagem = this.cena.assets.retornaImagem("esqueleto");
+      imagem = this.cena.assets.retornaImagem("estrela");
+    } else if (this.tags.has("coin")) {
+      imagem = this.cena.assets.retornaImagem("moeda");
     }
 
     ctx.drawImage(
       imagem,
       //sx, sy, sw, sh
-      Math.floor(this.quadro) * 64,
-      this.pose * 64,
-      64,
-      64,
+      Math.floor(this.quadro) * this.tamanhoQuadro,
+      this.pose * this.tamanhoQuadro,
+      this.tamanhoQuadro,
+      this.tamanhoQuadro,
       //dx, dy, dw, dh
       this.x - this.w / 2,
       this.y - this.h / 2,
@@ -88,6 +78,35 @@ export default class Sprite {
       this.cena.pc_y = this.y;
     }
 
+    if (this.tags.has("especial")) {
+      this.pose = 0;
+      this.tamanhoQuadro = 2300;
+      this.POSES = [
+        { qmax: 3, pv: 0.5 },
+        { qmax: 3, pv: 0.5 },
+      ];
+    } else if (this.tags.has("coin")) {
+      this.pose = 0;
+      this.tamanhoQuadro = 48;
+      this.POSES = [{ qmax: 6, pv: 7 }];
+    } else {
+      this.pose = 7;
+      this.tamanhoQuadro = 64;
+      this.POSES = [
+        { qmax: 7, pv: 8 },
+        { qmax: 7, pv: 8 },
+        { qmax: 7, pv: 8 },
+        { qmax: 7, pv: 8 },
+        { qmax: 8, pv: 8 },
+        { qmax: 8, pv: 8 },
+        { qmax: 8, pv: 8 },
+        { qmax: 8, pv: 8 },
+        { qmax: 9, pv: 8 },
+        { qmax: 9, pv: 8 },
+        { qmax: 9, pv: 8 },
+        { qmax: 9, pv: 8 },
+      ];
+    }
     this.quadro =
       this.quadro > this.POSES[this.pose].qmax - 1
         ? 0

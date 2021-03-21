@@ -6,17 +6,47 @@ import modeloMapa from "../maps/mapa1.js";
 
 export default class CenaJogo01 extends Cena {
   quandoColidir(a, b) {
-    if (!this.aRemover.includes(a)) this.aRemover.push(a);
-    if (!this.aRemover.includes(b)) this.aRemover.push(b);
-
-    if (a.tags.has("pc") && b.tags.has("enemy")) {
-      this.assets?.play("boom");
-      this.game.selecionaCena("fim");
+    if (!this.aRemover.includes(a)) {
+      if (!b.tags.has("coin") && !this.aRemover.includes(b)) {
+        this.aRemover.push(a);
+      }
     }
 
-    if (a.tags.has("pc") && b.tags.has("especial")) {
+    if (!this.aRemover.includes(b)) {
+      this.aRemover.push(b);
+    }
+
+    if (
+      ((a.tags.has("pc") && b.tags.has("coin")) ||
+        (b.tags.has("pc") && a.tags.has("coin"))) &&
+      this.rodando
+    ) {
+      this.game.pontuacao = this.game.pontuacao + 1;
+    }
+
+    console.log("jogo 01\npontuação: ", this.game.pontuacao);
+
+    if (a.tags.has("pc") && b.tags.has("enemy")) {
+      this.game.pontuacaoMaxJogo02 = 12;
+      this.game.pontuacao = 0;
+      this.assets?.play("boom");
+      this.game.selecionaCena("fim");
+    } else if (a.tags.has("pc") && b.tags.has("especial")) {
+      this.game.pontuacaoMaxJogo02 =
+        this.game.pontuacaoMaxJogo02 + this.game.pontuacao;
+      console.log(
+        "jogo 00 ---> jogo 02: pontuação max:",
+        this.game.pontuacaoMaxJogo02,
+        "\tpontuação: ",
+        this.game.pontuacao
+      );
+
       this.assets?.play("moeda");
       this.game.selecionaCena("jogo_02");
+    } else if (a.tags.has("pc") && b.tags.has("coin")) {
+      this.assets?.play("moeda");
+    } else if (a.tags.has("enemy") && b.tags.has("enemy")) {
+      this.assets?.play("boom");
     }
   }
 
@@ -27,12 +57,18 @@ export default class CenaJogo01 extends Cena {
     const LARGURA_MAPA = 14;
     const ALTURA_MAPA = 10;
 
+    const QUANTIDADE_MOEDAS = 8;
+
     const mapa = new Mapa(ALTURA_MAPA, LARGURA_MAPA, TAMANHO_TILE);
     mapa.carregaMapa(modeloMapa);
     this.configuraMapa(mapa);
 
     this.criaJogador();
     this.criaSpriteEspecial();
+
+    for (let i = 0; i < QUANTIDADE_MOEDAS; i++) {
+      this.criaMoeda();
+    }
   }
 
   geraValorAleatorio(TAMANHO_SPRITE, TAMANHO_TILE, LARGURA_MAPA, ALTURA_MAPA) {
@@ -177,6 +213,28 @@ export default class CenaJogo01 extends Cena {
     });
 
     this.adicionar(spriteEspecial);
+  }
+
+  criaMoeda() {
+    const TAMANHO_SPRITE = 20;
+    const TAMANHO_TILE = 32;
+    const LARGURA_MAPA = 14;
+    const ALTURA_MAPA = 10;
+
+    const { x, y } = this.geraValorAleatorio(
+      TAMANHO_SPRITE,
+      TAMANHO_TILE,
+      LARGURA_MAPA,
+      ALTURA_MAPA
+    );
+
+    const moeda = new Sprite({
+      x,
+      y,
+      tags: ["coin"],
+    });
+
+    this.adicionar(moeda);
   }
 
   criaInimigo() {

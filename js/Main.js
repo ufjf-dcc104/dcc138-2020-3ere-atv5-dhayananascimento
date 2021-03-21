@@ -21,6 +21,8 @@ assets.carregaImagem("garota", "assets/girl.png");
 assets.carregaImagem("esqueleto", "assets/skeleton.png");
 assets.carregaImagem("parede", "assets/parede.jpg");
 assets.carregaImagem("grama", "assets/grama.jpg");
+assets.carregaImagem("estrela", "assets/star.png");
+assets.carregaImagem("moeda", "assets/coin.png");
 
 assets.carregaAudio("boom", "assets/boom.wav");
 assets.carregaAudio("moeda", "assets/coin.wav");
