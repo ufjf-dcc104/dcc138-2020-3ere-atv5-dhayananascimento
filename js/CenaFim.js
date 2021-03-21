@@ -8,15 +8,34 @@ export default class CenaFim extends Cena {
     this.ctx.font = "20px Impact";
     this.ctx.textAlign = "center";
 
-    this.ctx.fillStyle = "red";
+    if (
+      this.game.pontuacao == this.game.pontuacaoMaxJogo02 &&
+      this.game.pontuacao != 0
+    ) {
+      this.ctx.fillStyle = "green";
+      this.ctx.fillText(
+        "VOCÊ GANHOU",
+        this.canvas.width / 2,
+        this.canvas.height / 2 - 30
+      );
+    } else {
+      this.ctx.fillStyle = "red";
+      this.ctx.fillText(
+        "FIM DE JOGO",
+        this.canvas.width / 2,
+        this.canvas.height / 2 - 30
+      );
+    }
+
+    this.ctx.fillStyle = "yellow";
+
     this.ctx.fillText(
-      "GAME OVER",
+      `MOEDAS COLETADAS = ${this.game.pontuacao}`,
       this.canvas.width / 2,
       this.canvas.height / 2
     );
 
     if (this.assets.acabou()) {
-      this.ctx.fillStyle = "yellow";
       this.ctx.fillText(
         "Aperte espaço para jogar novamente",
         this.canvas.width / 2,
@@ -31,6 +50,8 @@ export default class CenaFim extends Cena {
 
     if (this.assets.acabou()) {
       if (this.input.comandos.get("PROXIMA_CENA")) {
+        this.game.pontuacaoMaxJogo02 = 12;
+        this.game.pontuacao = 0;
         this.game.selecionaCena("jogo_01");
         return;
       }
