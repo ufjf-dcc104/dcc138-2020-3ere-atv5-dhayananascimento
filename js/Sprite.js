@@ -87,7 +87,7 @@ export default class Sprite {
       ];
     } else if (this.tags.has("coin")) {
       this.pose = 0;
-      this.tamanhoQuadro = 48;
+      this.tamanhoQuadro = 191;
       this.POSES = [{ qmax: 6, pv: 7 }];
     } else {
       this.pose = 7;
