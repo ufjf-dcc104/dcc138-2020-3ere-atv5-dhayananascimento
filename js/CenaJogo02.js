@@ -25,15 +25,15 @@ export default class CenaJogo02 extends Cena {
       this.game.pontuacaoMaxJogo02 = this.game.pontuacaoMaxJogo02 - 1;
     }
 
-    console.log(
-      "jogo 02\npontuação max:",
-      this.game.pontuacaoMaxJogo02,
-      "\tpontuação: ",
-      this.game.pontuacao
-    );
+    // console.log(
+    //   "jogo 02\npontuação max:",
+    //   this.game.pontuacaoMaxJogo02,
+    //   "\tpontuação: ",
+    //   this.game.pontuacao
+    // );
 
     if (this.game.pontuacao == this.game.pontuacaoMaxJogo02) {
-      console.log("Você ganhou!");
+      // console.log("Você ganhou!");
       this.assets?.play("ganhou");
       this.game.selecionaCena("fim");
     } else if (a.tags.has("pc") && b.tags.has("enemy")) {

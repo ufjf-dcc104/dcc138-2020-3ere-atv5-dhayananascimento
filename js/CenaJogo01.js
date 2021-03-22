@@ -32,7 +32,7 @@ export default class CenaJogo01 extends Cena {
       this.game.pontuacao = this.game.pontuacao + 1;
     }
 
-    console.log("jogo 01\npontuação: ", this.game.pontuacao);
+    // console.log("jogo 01\npontuação: ", this.game.pontuacao);
 
     if (a.tags.has("pc") && b.tags.has("enemy")) {
       this.assets?.play("perdeu");
@@ -40,12 +40,12 @@ export default class CenaJogo01 extends Cena {
     } else if (a.tags.has("pc") && b.tags.has("especial")) {
       this.game.pontuacaoMaxJogo02 =
         this.game.pontuacaoMaxJogo02 + this.game.pontuacao;
-      console.log(
-        "jogo 00 ---> jogo 02: pontuação max:",
-        this.game.pontuacaoMaxJogo02,
-        "\tpontuação: ",
-        this.game.pontuacao
-      );
+      // console.log(
+      //   "jogo 01 ---> jogo 02: pontuação max:",
+      //   this.game.pontuacaoMaxJogo02,
+      //   "\tpontuação: ",
+      //   this.game.pontuacao
+      // );
 
       this.assets?.play("nivel");
       this.game.selecionaCena("jogo_02");
