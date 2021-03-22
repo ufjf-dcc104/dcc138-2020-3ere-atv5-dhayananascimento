@@ -35,7 +35,7 @@ export default class CenaJogo01 extends Cena {
     console.log("jogo 01\npontuação: ", this.game.pontuacao);
 
     if (a.tags.has("pc") && b.tags.has("enemy")) {
-      this.assets?.play("boom");
+      this.assets?.play("perdeu");
       this.game.selecionaCena("fim");
     } else if (a.tags.has("pc") && b.tags.has("especial")) {
       this.game.pontuacaoMaxJogo02 =

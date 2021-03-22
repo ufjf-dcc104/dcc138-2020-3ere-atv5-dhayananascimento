@@ -34,9 +34,10 @@ export default class CenaJogo02 extends Cena {
 
     if (this.game.pontuacao == this.game.pontuacaoMaxJogo02) {
       console.log("Você ganhou!");
+      this.assets?.play("ganhou");
       this.game.selecionaCena("fim");
     } else if (a.tags.has("pc") && b.tags.has("enemy")) {
-      this.assets?.play("boom");
+      this.assets?.play("perdeu");
       this.game.selecionaCena("fim");
     } else if (a.tags.has("pc") && b.tags.has("coin")) {
       this.assets?.play("moeda");
