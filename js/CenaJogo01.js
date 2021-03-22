@@ -7,7 +7,11 @@ import modeloMapa from "../maps/mapa1.js";
 export default class CenaJogo01 extends Cena {
   quandoColidir(a, b) {
     if (!this.aRemover.includes(a)) {
-      if (!b.tags.has("coin") && !this.aRemover.includes(b)) {
+      if (
+        !a.tags.has("especial") &&
+        !b.tags.has("coin") &&
+        !this.aRemover.includes(b)
+      ) {
         this.aRemover.push(a);
       }
     }
@@ -15,6 +19,10 @@ export default class CenaJogo01 extends Cena {
     if (!this.aRemover.includes(b)) {
       this.aRemover.push(b);
     }
+
+    // if (!(a.tags.has("pc") && b.tags.has("especial"))){
+
+    // }
 
     if (
       ((a.tags.has("pc") && b.tags.has("coin")) ||
