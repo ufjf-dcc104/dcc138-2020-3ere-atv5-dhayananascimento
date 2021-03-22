@@ -47,7 +47,7 @@ export default class CenaJogo01 extends Cena {
         this.game.pontuacao
       );
 
-      this.assets?.play("moeda");
+      this.assets?.play("nivel");
       this.game.selecionaCena("jogo_02");
     } else if (a.tags.has("pc") && b.tags.has("coin")) {
       this.assets?.play("moeda");

@@ -26,6 +26,7 @@ assets.carregaImagem("moeda", "assets/coin.png");
 
 assets.carregaAudio("boom", "assets/boom.wav");
 assets.carregaAudio("moeda", "assets/coin.wav");
+assets.carregaAudio("nivel", "assets/level.wav");
 
 const canvas = document.querySelector("canvas");
 canvas.width = LARGURA_MAPA * TAMANHO_TILE;
