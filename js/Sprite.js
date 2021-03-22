@@ -160,13 +160,13 @@ export default class Sprite {
           h: SIZE,
         };
 
-        this.cena.ctx.strokeStyle = "white";
-        this.cena.ctx.strokeRect(
-          tile.x - SIZE / 2,
-          tile.y - SIZE / 2,
-          SIZE,
-          SIZE
-        );
+        // this.cena.ctx.strokeStyle = "white";
+        // this.cena.ctx.strokeRect(
+        //   tile.x - SIZE / 2,
+        //   tile.y - SIZE / 2,
+        //   SIZE,
+        //   SIZE
+        // );
 
         if (this.colidiuCom(tile)) {
           this.vx = 0;
@@ -188,13 +188,13 @@ export default class Sprite {
           h: SIZE,
         };
 
-        this.cena.ctx.strokeStyle = "white";
-        this.cena.ctx.strokeRect(
-          tile.x - SIZE / 2,
-          tile.y - SIZE / 2,
-          SIZE,
-          SIZE
-        );
+        // this.cena.ctx.strokeStyle = "white";
+        // this.cena.ctx.strokeRect(
+        //   tile.x - SIZE / 2,
+        //   tile.y - SIZE / 2,
+        //   SIZE,
+        //   SIZE
+        // );
 
         if (this.colidiuCom(tile)) {
           this.vx = 0;
@@ -216,13 +216,13 @@ export default class Sprite {
           h: SIZE,
         };
 
-        this.cena.ctx.strokeStyle = "white";
-        this.cena.ctx.strokeRect(
-          tile.x - SIZE / 2,
-          tile.y - SIZE / 2,
-          SIZE,
-          SIZE
-        );
+        // this.cena.ctx.strokeStyle = "white";
+        // this.cena.ctx.strokeRect(
+        //   tile.x - SIZE / 2,
+        //   tile.y - SIZE / 2,
+        //   SIZE,
+        //   SIZE
+        // );
 
         if (this.colidiuCom(tile)) {
           this.vy = 0;
@@ -244,13 +244,13 @@ export default class Sprite {
           h: SIZE,
         };
 
-        this.cena.ctx.strokeStyle = "white";
-        this.cena.ctx.strokeRect(
-          tile.x - SIZE / 2,
-          tile.y - SIZE / 2,
-          SIZE,
-          SIZE
-        );
+        // this.cena.ctx.strokeStyle = "white";
+        // this.cena.ctx.strokeRect(
+        //   tile.x - SIZE / 2,
+        //   tile.y - SIZE / 2,
+        //   SIZE,
+        //   SIZE
+        // );
 
         if (this.colidiuCom(tile)) {
           this.vy = 0;
